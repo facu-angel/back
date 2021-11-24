@@ -7,17 +7,30 @@ b)Ruta get '/productoRandom' que devuelva un producto elegido al azar entre todo
 2) Incluir un archivo de texto 'productos.txt' y utilizar la clase contenedor del desafio anterior para acceder a
 los datos persistidos del servidor 
 */
+const Contenedor = require('./contenedor.js')
+let producto1 = new Contenedor
+producto1.saveObject({id:1, producto:'salsa'})
+
+let producto2 = new Contenedor
+producto2.saveObject({id:2, producto:'fideo'})
+
+let producto3 = new Contenedor
+producto3.saveObject({id:3, producto:'tamales'})
+
+const fs = require('fs')
 const express = require('express')
 const app = express()
-const PORT = 3000
-const array = [0, 'marta', 'yoyo']
-app.listen(PORT, ()=>{
-    console.log(`Servidor http encuchando en el puerto ${PORT}` )
+const PORT = 8080
+const server = app.listen(PORT, ()=>{
+    console.log(`Servidor http encuchando en el puerto ${server.address().port}` )
 })
 
-app.get('/prueba', (req, res)=>{
-    res.send(array)
+app.get('/productos', (req, res)=>{
+    res.send(producto1.getAll())
 })
 
-const p = console.dir(app.locals.title)
-console.log(p)
+app.get('/productoRandom', (req, res)=>{
+    let numeroA = Math.floor(Math.random() * 3) + 1
+    res.send(producto1.getById(numeroA))
+})
+

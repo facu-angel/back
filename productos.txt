@@ -1,0 +1,2 @@
+
+{"id":1,"producto":"salsa"};{"id":2,"producto":"fideo"};{"id":3,"producto":"tamales"};
